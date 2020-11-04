@@ -2,19 +2,22 @@ defmodule Learnex.ProvidersTest do
   use Learnex.DataCase
 
   alias Learnex.Providers
+  import Learnex.AccountsFixtures
 
   describe "providers" do
     alias Learnex.Providers.Provider
 
     @valid_attrs %{account_type: "some account_type", name: "some name"}
     @update_attrs %{account_type: "some updated account_type", name: "some updated name"}
-    @invalid_attrs %{account_type: nil, name: nil}
+    @invalid_attrs %{account_type: nil, name: nil, user_id: nil}
 
     def provider_fixture(attrs \\ %{}) do
+      user = user_fixture()
+
       {:ok, provider} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Providers.create_provider()
+        |> Providers.create_provider(user.id)
 
       provider
     end

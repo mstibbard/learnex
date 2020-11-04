@@ -14,6 +14,7 @@ defmodule Learnex.Providers.Provider do
   def changeset(provider, attrs) do
     provider
     |> cast(attrs, [:name, :account_type, :user_id])
+    |> foreign_key_constraint(:user_id)
     |> validate_required([:name, :account_type, :user_id])
   end
 end
