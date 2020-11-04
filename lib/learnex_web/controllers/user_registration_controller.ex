@@ -3,7 +3,6 @@ defmodule LearnexWeb.UserRegistrationController do
 
   alias Learnex.Accounts
   alias Learnex.Accounts.User
-  alias LearnexWeb.UserAuth
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})
@@ -20,8 +19,11 @@ defmodule LearnexWeb.UserRegistrationController do
           )
 
         conn
-        |> put_flash(:info, "User created successfully.")
-        |> UserAuth.log_in_user(user)
+        |> put_flash(
+          :info,
+          "User created successfully. Please check your email for confirmation instructions."
+          )
+        |> redirect(to: Routes.user_session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
