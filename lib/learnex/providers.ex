@@ -49,7 +49,7 @@ defmodule Learnex.Providers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_provider(attrs \\ %{}, user_id) do
+  def create_provider(attrs, user_id) do
     %Provider{user_id: user_id}
     |> Provider.changeset(attrs)
     |> Repo.insert()
