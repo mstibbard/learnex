@@ -32,6 +32,12 @@ defmodule Learnex.AccountsTest do
       assert %User{id: ^id} =
                Accounts.get_user_by_email_and_password(user.email, valid_user_password())
     end
+
+    test "does not return the user if their account has not been confirmed" do
+      user = user_fixture(%{}, confirmed: false)
+
+      refute Accounts.get_user_by_email_and_password(user.email, valid_user_password())
+    end
   end
 
   describe "get_user!/1" do
