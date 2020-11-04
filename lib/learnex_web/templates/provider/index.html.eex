@@ -1,0 +1,28 @@
+<h1>Listing Providers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Account type</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for provider <- @providers do %>
+    <tr>
+      <td><%= provider.name %></td>
+      <td><%= provider.account_type %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.provider_path(@conn, :show, provider) %></span>
+        <span><%= link "Edit", to: Routes.provider_path(@conn, :edit, provider) %></span>
+        <span><%= link "Delete", to: Routes.provider_path(@conn, :delete, provider), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Provider", to: Routes.provider_path(@conn, :new) %></span>

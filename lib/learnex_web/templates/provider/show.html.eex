@@ -1,0 +1,18 @@
+<h1>Show Provider</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @provider.name %>
+  </li>
+
+  <li>
+    <strong>Account type:</strong>
+    <%= @provider.account_type %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.provider_path(@conn, :edit, @provider) %></span>
+<span><%= link "Back", to: Routes.provider_path(@conn, :index) %></span>

@@ -68,6 +68,7 @@ defmodule LearnexWeb.Router do
     get "/users/log_out", UserSessionController, :delete
 
     get "/secured_page", PageController, :secure
+    resources "/providers", ProviderController
   end
 
   scope "/", LearnexWeb do

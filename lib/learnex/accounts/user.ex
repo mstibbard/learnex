@@ -8,6 +8,7 @@ defmodule Learnex.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    has_many :providers, Learnex.Providers.Provider
 
     timestamps()
   end
