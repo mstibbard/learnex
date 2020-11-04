@@ -6,7 +6,7 @@ defmodule LearnexWeb.UserConfirmationControllerTest do
   import Learnex.AccountsFixtures
 
   setup do
-    %{user: user_fixture()}
+    %{user: user_fixture(%{}, confirmed: false)}
   end
 
   describe "GET /users/confirm" do

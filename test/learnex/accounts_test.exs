@@ -368,7 +368,7 @@ defmodule Learnex.AccountsTest do
 
   describe "confirm_user/2" do
     setup do
-      user = user_fixture()
+      user = user_fixture(%{}, confirmed: false)
 
       token =
         extract_user_token(fn url ->
