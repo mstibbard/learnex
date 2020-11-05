@@ -9,6 +9,7 @@ defmodule Learnex.Accounts.User do
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
     has_many :providers, Learnex.Providers.Provider
+    has_many :balances, Learnex.Balances.Balance
 
     timestamps()
   end

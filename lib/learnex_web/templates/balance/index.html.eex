@@ -1,0 +1,28 @@
+<h1>Listing Balances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for balance <- @balances do %>
+    <tr>
+      <td><%= balance.date %></td>
+      <td><%= balance.amount %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.balance_path(@conn, :show, balance) %></span>
+        <span><%= link "Edit", to: Routes.balance_path(@conn, :edit, balance) %></span>
+        <span><%= link "Delete", to: Routes.balance_path(@conn, :delete, balance), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Balance", to: Routes.balance_path(@conn, :new) %></span>

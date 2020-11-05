@@ -69,6 +69,7 @@ defmodule LearnexWeb.Router do
 
     get "/secured_page", PageController, :secure
     resources "/providers", ProviderController
+    resources "/balances", BalanceController
   end
 
   scope "/", LearnexWeb do
