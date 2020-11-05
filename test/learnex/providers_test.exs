@@ -32,14 +32,15 @@ defmodule Learnex.ProvidersTest do
       assert Providers.get_provider!(provider.id) == provider
     end
 
-    test "create_provider/1 with valid data creates a provider" do
-      assert {:ok, %Provider{} = provider} = Providers.create_provider(@valid_attrs)
+    test "create_provider/2 with valid data creates a provider" do
+      user = user_fixture()
+      assert {:ok, %Provider{} = provider} = Providers.create_provider(@valid_attrs, user.id)
       assert provider.account_type == "some account_type"
       assert provider.name == "some name"
     end
 
-    test "create_provider/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Providers.create_provider(@invalid_attrs)
+    test "create_provider/2 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Providers.create_provider(@invalid_attrs, 1)
     end
 
     test "update_provider/2 with valid data updates the provider" do

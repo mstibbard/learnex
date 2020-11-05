@@ -23,8 +23,6 @@ defmodule Learnex.AccountsTest do
     end
 
     test "does not return the user if the password is not valid" do
-      user = user_fixture()
-
       assert {:error, :bad_username_or_password} ==
         Accounts.get_user_by_email_and_password("unknown@example.com", "invalid")
     end
