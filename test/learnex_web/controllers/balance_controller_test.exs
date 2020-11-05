@@ -3,6 +3,7 @@ defmodule LearnexWeb.BalanceControllerTest do
 
   alias Learnex.Balances
   import Learnex.AccountsFixtures
+  import Learnex.ProvidersFixtures
 
   @create_attrs %{amount: "120.5", date: ~D[2010-04-17]}
   @update_attrs %{amount: "456.7", date: ~D[2011-05-18]}
@@ -13,7 +14,9 @@ defmodule LearnexWeb.BalanceControllerTest do
   end
 
   def fixture(:balance) do
-    {:ok, balance} = Balances.create_balance(@create_attrs)
+    user = user_fixture()
+    provider = provider_fixture(%{account_type: "some account_type", name: "some name"}, user)
+    {:ok, balance} = Balances.create_balance(@create_attrs, user.id, provider.id)
     balance
   end
 
@@ -33,7 +36,12 @@ defmodule LearnexWeb.BalanceControllerTest do
 
   describe "create balance" do
     test "redirects to show when data is valid", %{conn: conn, user: user} do
-      conn = conn |> log_in_user(user) |> post(Routes.balance_path(conn, :create), balance: @create_attrs)
+      provider = provider_fixture(%{account_type: "some account_type", name: "some name"}, user)
+
+      conn =
+        conn
+        |> log_in_user(user)
+        |> post(Routes.balance_path(conn, :create), balance: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.balance_path(conn, :show, id)

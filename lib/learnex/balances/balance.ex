@@ -14,9 +14,9 @@ defmodule Learnex.Balances.Balance do
   @doc false
   def changeset(balance, attrs) do
     balance
-    |> cast(attrs, [:date, :amount])
+    |> cast(attrs, [:date, :amount, :user_id, :provider_id])
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:provider_id)
-    |> validate_required([:date, :amount])
+    |> validate_required([:date, :amount, :user_id, :provider_id])
   end
 end

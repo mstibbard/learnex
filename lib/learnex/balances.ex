@@ -49,8 +49,8 @@ defmodule Learnex.Balances do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_balance(attrs) do
-    %Balance{}
+  def create_balance(attrs, user_id, provider_id) do
+    %Balance{user_id: user_id, provider_id: provider_id}
     |> Balance.changeset(attrs)
     |> Repo.insert()
   end

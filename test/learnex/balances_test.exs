@@ -2,6 +2,8 @@ defmodule Learnex.BalancesTest do
   use Learnex.DataCase
 
   alias Learnex.Balances
+  import Learnex.AccountsFixtures
+  import Learnex.ProvidersFixtures
 
   describe "balances" do
     alias Learnex.Balances.Balance
@@ -11,10 +13,13 @@ defmodule Learnex.BalancesTest do
     @invalid_attrs %{amount: nil, date: nil}
 
     def balance_fixture(attrs \\ %{}) do
+      user = user_fixture()
+      provider = provider_fixture(%{account_type: "some account_type", name: "some name"}, user)
+
       {:ok, balance} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Balances.create_balance()
+        |> Balances.create_balance(user.id, provider.id)
 
       balance
     end
@@ -29,14 +34,16 @@ defmodule Learnex.BalancesTest do
       assert Balances.get_balance!(balance.id) == balance
     end
 
-    test "create_balance/1 with valid data creates a balance" do
-      assert {:ok, %Balance{} = balance} = Balances.create_balance(@valid_attrs)
+    test "create_balance/3 with valid data creates a balance" do
+      user = user_fixture()
+      provider = provider_fixture(%{account_type: "some account_type", name: "some name"}, user)
+      assert {:ok, %Balance{} = balance} = Balances.create_balance(@valid_attrs, user.id, provider.id)
       assert balance.amount == Decimal.new("120.5")
       assert balance.date == ~D[2010-04-17]
     end
 
-    test "create_balance/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Balances.create_balance(@invalid_attrs)
+    test "create_balance/3 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Balances.create_balance(@invalid_attrs, nil, nil)
     end
 
     test "update_balance/2 with valid data updates the balance" do
