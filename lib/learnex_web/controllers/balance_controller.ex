@@ -1,8 +1,11 @@
 defmodule LearnexWeb.BalanceController do
   use LearnexWeb, :controller
 
+  alias Learnex.Repo
   alias Learnex.Balances
   alias Learnex.Balances.Balance
+  alias Learnex.Providers.Provider
+  import Ecto.Query
 
   def index(conn, _params) do
     balances = Balances.list_balances()
@@ -10,12 +13,17 @@ defmodule LearnexWeb.BalanceController do
   end
 
   def new(conn, _params) do
+    providers = Repo.all(from p in Provider,
+                          where: p.user_id == ^conn.assigns.current_user.id)
+
     changeset = Balances.change_balance(%Balance{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, providers: providers)
   end
 
   def create(conn, %{"balance" => balance_params}) do
-    case Balances.create_balance(balance_params) do
+    user_id = conn.assigns.current_user.id
+
+    case Balances.create_balance(balance_params, user_id) do
       {:ok, balance} ->
         conn
         |> put_flash(:info, "Balance created successfully.")
