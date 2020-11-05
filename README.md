@@ -1,20 +1,18 @@
 # Learnex
 
-To start your Phoenix server:
+## Goals
+This is a dummy project to try and get myself back up and running in Elixir + Phoenix. It is a learning opportunity and will probably go in weird directions at times as I try to learn new things.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+## Desires
+At some point it would be great to get a code review from someone that actually knows what they are doing!!
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Requirements
+[x] User restricted to the index page if not logged in
+[x] User can create an account
+[x] User can log in
+[x] Authenticated user can create a provider (e.g. ING Savings)
+[ ] Authenticated user restricted to providers they've created (i.e. other users providers don't appear)
+[ ] Authenticated user can create point in time balances for a provider (e.g. balance of 10,000 in ING Savings on 2020-11-05)
+[ ] Authenticated user restricted to balances they've created (i.e. other users balances don't appear)
+[ ] All above requirements should have passing tests
+[ ] Project is deployable to Heroku
